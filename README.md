@@ -28,9 +28,9 @@ unwrap_images:
     process_content: true
 ```
 
-## Images wrapped in <a> tags
+## Images wrapped in `<a>` tags
 
-Images whose direct parents are <a> ... </a> will also be processed, if elligible (e.g., the <a> tags are themselves wrapped in <p> tags).
+Images whose direct parents are `<a>` ... `</a>` will also be processed, if elligible (e.g., the `<a>` tags are themselves wrapped in `<p>` tags).
 
 ## Option to process only images with class
 
