@@ -39,3 +39,12 @@ form:
         true: Yes
       validate:
         type: bool
+
+    class:
+      type: text
+      placeholder: e.g., unwrap-me
+      label: 'Process only images with class:'
+      help: If blank, all images are processed
+      size: small
+      validate:
+        pattern: '[A-Za-z0-9-]+'

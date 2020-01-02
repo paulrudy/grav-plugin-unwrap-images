@@ -31,3 +31,11 @@ unwrap_images:
 ## Images wrapped in <a> tags
 
 Images whose direct parents are <a> ... </a> will also be processed, if elligible (e.g., the <a> tags are themselves wrapped in <p> tags).
+
+## Option to process only images with class
+
+In `user/config/plugins/unwrap-images.yaml` (or in the plugin settings in Admin), there is the option to specify a (single) class.
+
+If a class is specified, only `<img>` elements with that class will be processed.
+
+If no class is specified, all `<img>` elements will be processed.

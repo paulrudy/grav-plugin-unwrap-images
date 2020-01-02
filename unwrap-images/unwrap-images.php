@@ -20,6 +20,8 @@ class UnwrapImagesPlugin extends Plugin
         $pageobject = $this->grav['page'];
         $processcontent = $this->config->get
         ('plugins.unwrap-images.process_content');
+        $class = $this->config->get
+        ('plugins.unwrap-images.class');
 
         if (isset ($pageobject->header()->unwrap_images['process_content']))  {
             $processcontent = $pageobject->header()->unwrap_images['process_content'];
@@ -32,7 +34,7 @@ class UnwrapImagesPlugin extends Plugin
                 $doc->loadHTML('<?xml encoding="UTF-8">'.$buffer); 
 
                 $xpath = new DOMXpath($doc);
-                $elements = $xpath->query("//img");
+                $elements = $xpath->query("//img[contains(@class,'$class')]");
 
                 foreach  ($elements as $element){
                     $parentnode = $element->parentNode;
