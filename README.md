@@ -12,6 +12,8 @@ Download the `unwrap-images` folder and move/copy it to your `user/plugins` fold
 
 Copy the `user/plugins/unwrap-images/unwrap-images.yaml` into `user/config/plugins/unwrap-images.yaml` and make your modifications.
 
+## Enabling/disabling globally or per-page
+
 Default setting is:
 
 ```
