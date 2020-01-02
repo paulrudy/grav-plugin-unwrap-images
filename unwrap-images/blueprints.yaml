@@ -1,0 +1,41 @@
+name: Unwrap Images
+version: 0.1
+description: "Unwrap Images Plugin"
+icon: image
+author:
+  name:
+  email: 
+homepage: https://github.com/paulrudy
+keywords: grav, plugin, image
+bugs: 
+docs: 
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+
+    process_content:
+      type: toggle
+      label: Process content on all pages by default
+      help: |-
+        When set to "off", page frontmatter needs to show
+        unwrap_images:
+          process_content: true
+      highlight: 1
+      default: false
+      options:
+        false: No
+        true: Yes
+      validate:
+        type: bool
