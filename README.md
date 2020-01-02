@@ -27,3 +27,7 @@ thus disabling the plugin except in pages with frontmatter explicitly enabling i
 unwrap_images:
     process_content: true
 ```
+
+## Images wrapped in <a> tags
+
+Images whose direct parents are <a> ... </a> will also be processed, if elligible (e.g., the <a> tags are themselves wrapped in <p> tags).
