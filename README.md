@@ -4,9 +4,13 @@ The **unwrap-images plugin** for [Grav](http://github.com/getgrav/grav) allows f
 
 The plugin is draws on (and corrects) information I found posted [here](https://discourse.getgrav.org/t/page-specific-plugin-configuration/198).
 
-# Installation
+### Manual Installation
 
-Download the `unwrap-images` folder and move/copy it to your `user/plugins` folder.
+To install the plugin manually, download the zip-version of this repository and unzip it under `/your/site/grav/user/plugins`. Then rename the folder to `unwrap-images`. You can find these files on [GitHub](https://github.com/paulrudy/grav-plugin-unwrap-images).
+
+You should now have all the plugin files under
+
+    /your/site/grav/user/plugins/unwrap-images
 
 # Configuration
 
