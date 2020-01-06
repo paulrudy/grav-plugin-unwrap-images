@@ -1,56 +1,40 @@
 <?php
+
 namespace Grav\Plugin;
 
-use DOMDocument;
-use DOMXpath;
 use Grav\Common\Plugin;
 use RocketTheme\Toolbox\Event\Event;
 
 class UnwrapImagesPlugin extends Plugin
 {
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         return [
             'onPageContentProcessed' => ['onPageContentProcessed', 0]
         ];
     }
- 
+
     public function onPageContentProcessed(Event $event)
     {
         $page = $event['page'];
-        $pageobject = $this->grav['page'];
-        $class = $this->config->get
-        ('plugins.unwrap-images.class');
-        $processcontent = $this->config->get
-        ('plugins.unwrap-images.process_content');
-        if (isset ($pageobject->header()->unwrap_images['process_content']))  {
-            $processcontent = $pageobject->header()->unwrap_images['process_content'];
+        $config = $this->mergeConfig($page);
+        $class = $this->config->get('plugins.unwrap-images.class');
+        $processcontent = $this->config->get('plugins.unwrap-images.process-content');
+        
+        if ($config->get('process-content')) {
+            $processcontent = $config->get('process-content');
         }
+
         if ($processcontent == true) {
-            $buffer = $page->content();
-            $url = $page->url();
-            $doc = new DOMDocument();
+            // Search for <p> and <a> (may not exist)
+            $pattern = '/<p>(<a[^>]*>\s*)?';
+            // Search <img> tag. Only match when value $class exists within 'class=" ... "'. Regex uses positive lookahead
+            $pattern .= $class ? '(<img[^>]*(?=class=\"[^\"]*' . $class . '[\",\s])[^>]*>)' : '(<img[^>]*>)';
+            // Search for </a> (it may not exist) and closing </p>
+            $pattern .= '(\s*<\/a>\s*)?<\/p>/';
+            $content = preg_replace($pattern, '$1$2$3', $page->content());
 
-            // Hack to force DOMDocument to load the HTML using UTF-8:
-            $doc->loadHTML('<?xml encoding="UTF-8">'.$buffer); 
-
-            $xpath = new DOMXpath($doc);
-            $elements = $xpath->query("//img[contains(@class,'$class')]");
-
-            foreach  ($elements as $element){
-                $parentnode = $element->parentNode;
-
-                // if parent is <a>, shift up one DOM level to find <p> wrapper if present:
-                if ($element->parentNode->nodeName == 'a') {
-                    $parentnode = $parentnode->parentNode;
-                    $element = $element->parentNode;
-                }
-                $parentnodetype = $parentnode->nodeName;
-                if ($parentnodetype == 'p') {
-                    $parentnode->parentNode->replaceChild($element,$parentnode);                  
-                }
-            }
-            $buffer = $doc->saveHTML();
-            $page->setRawContent($buffer);
+            $page->setRawContent($content);
         }
     }
 }

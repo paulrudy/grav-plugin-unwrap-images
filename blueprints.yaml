@@ -25,13 +25,13 @@ form:
       validate:
         type: bool
 
-    process_content:
+    process-content:
       type: toggle
       label: Process content on all pages by default
       help: |-
         When set to "off", page frontmatter needs to show
         unwrap_images:
-          process_content: true
+          process-content: true
       highlight: 1
       default: false
       options:
