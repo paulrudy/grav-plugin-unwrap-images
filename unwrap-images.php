@@ -17,15 +17,11 @@ class UnwrapImagesPlugin extends Plugin
     public function onPageContentProcessed(Event $event)
     {
         $page = $event['page'];
-        $config = $this->mergeConfig($page);
-        $class = $this->config->get('plugins.unwrap-images.class');
-        $processcontent = $this->config->get('plugins.unwrap-images.process-content');
-        
-        if ($config->get('process-content')) {
-            $processcontent = $config->get('process-content');
-        }
-
+        $config = $this->mergeConfig($page, true);
+        $class = $config->get('class');
+        $processcontent = $config->get('process-content');
         if ($processcontent == true) {
+            // Thanks to https://discourse.getgrav.org/u/pamtbaau for regex suggestions
             // Search for <p> and <a> (may not exist)
             $pattern = '/<p>(<a[^>]*>\s*)?';
             // Search <img> tag. Only match when value $class exists within 'class=" ... "'. Regex uses positive lookahead

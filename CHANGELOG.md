@@ -1,3 +1,9 @@
+# v0.1.3
+##  01/08/2020
+
+1. [](#new)
+    * Improve plugin and page config checking
+
 # v0.1.2
 ##  01/03/2020
 
