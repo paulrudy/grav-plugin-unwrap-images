@@ -20,14 +20,15 @@ class UnwrapImagesPlugin extends Plugin
         $config = $this->mergeConfig($page, true);
         $class = $config->get('class');
         $processcontent = $config->get('process-content');
+        
         if ($processcontent == true) {
             // Thanks to https://discourse.getgrav.org/u/pamtbaau for regex suggestions
             // Search for <p> and <a> (may not exist)
-            $pattern = '/<p>(<a[^>]*>\s*)?';
+            $pattern = '/<p>\s*(<a[^>]*>\s*)?';
             // Search <img> tag. Only match when value $class exists within 'class=" ... "'. Regex uses positive lookahead
             $pattern .= $class ? '(<img[^>]*(?=class=\"[^\"]*' . $class . '[\",\s])[^>]*>)' : '(<img[^>]*>)';
             // Search for </a> (it may not exist) and closing </p>
-            $pattern .= '(\s*<\/a>\s*)?<\/p>/';
+            $pattern .= '(\s*<\/a>)?\s*<\/p>/';
             $content = preg_replace($pattern, '$1$2$3', $page->content());
 
             $page->setRawContent($content);
